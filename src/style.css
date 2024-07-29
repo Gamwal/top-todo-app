@@ -1,5 +1,6 @@
 :root {
   font-size: 10px;
+  --border-radius: 10px;
 }
 
 * {
@@ -8,8 +9,48 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 #content {
-  height: 50px;
-  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  height: 80vh;
+  width: 60vw;
   background-color: aqua;
+  border-radius: var(--border-radius);
+  padding: 6rem;
+}
+
+#add-task-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  border-radius: var(--border-radius);
+}
+
+#task-input {
+  flex-grow: 1;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1.6rem;
+}
+
+#task-input:focus {
+  border: none;
+  outline: none;
+}
+
+#add-task-btn {
+  height: 4rem;
+  width: 10rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: var(--border-radius);
 }
