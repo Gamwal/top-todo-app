@@ -1,65 +1,40 @@
 import './style.css';
-// import TodoItem from './todo';
+// import TodoItem from '.modules/todo';
 // import Project from './project';
 // import { createNewProject, createNewTodo } from './utils';
-
-const container = document.getElementById('content');
-
-const addTaskDiv = document.createElement('div');
-addTaskDiv.id = "add-task-container";
-
-const taskInput = document.createElement('input');
-taskInput.id = "task-input";
-taskInput.placeholder = "New task...";
-
-const addTaskBtn = document.createElement('button');
-addTaskBtn.id = "add-task-btn";
-addTaskBtn.textContent = "ADD";
-
-addTaskDiv.appendChild(taskInput);
-addTaskDiv.appendChild(addTaskBtn);
-container.appendChild(addTaskDiv);
+import { displayUI, resetTab, highlightTab } from './modules/tabControl';
 
 
-const navDiv = document.createElement('nav');
-navDiv.id = "nav-bar";
+displayUI();
 
-const allButton = document.createElement('button');
-allButton.classList.add("nav-button");
-allButton.textContent = "ALL";
+const navBar = document.getElementById('nav-bar');
+navBar.addEventListener('click', (event) => {
+  if (event.target.tagName === 'BUTTON') {
+    resetTab();
+    highlightTab(event.target);
+    if (event.target.textContent === 'ALL') {
+      // contentContainer.appendChild(homePage());
+    } else if (event.target.textContent === 'ACTIVE') {
+      // contentContainer.appendChild(restaurantMenu());
+    } else if (event.target.textContent === 'COMPLETED') {
+      // contentContainer.appendChild(contactUs());
+    }
+  }
+})
 
-const activeButton = document.createElement('button');
-activeButton.classList.add("nav-button");
-activeButton.textContent = "ACTIVE";
-
-const completedButton = document.createElement('button');
-completedButton.classList.add("nav-button");
-completedButton.textContent = "COMPLETED";
-
-navDiv.appendChild(allButton);
-navDiv.appendChild(activeButton);
-navDiv.appendChild(completedButton);
-container.appendChild(navDiv);
-
-
-// const navBar= document.getElementById('navbar');
-// navBar.addEventListener('click', (event) => {
-//   if (event.target.tagName === 'BUTTON') {
-//     resetPage();
-//     highlightTab(event.target);
-//     if (event.target.textContent === 'HOME'){
-//       contentContainer.appendChild(homePage());
-//     } else if (event.target.textContent === 'MENU') {
-//       contentContainer.appendChild(restaurantMenu());
-//     } else if (event.target.textContent === 'CONTACT US') {
-//       contentContainer.appendChild(contactUs());
-//     }
-//   }
-// })
+const newTask = document.getElementById('task-input');
+const addTask = document.getElementById('add-task-btn');
+addTask.addEventListener('click', (event) => {
+  if (newTask.value !== "") {
+    console.log(newTask.value)
+    newTask.value = "";
+  }
+})
 
 
-// To load homepage by default
-// window.addEventListener('load', () => {
-//   const homeButton = document.querySelector('#navbar button:first-child');
-//   homeButton.click();
-// })
+window.addEventListener('load', () => {
+  const homeButton = document.querySelector('#nav-bar button:first-child');
+  homeButton.click();
+})
+
+
