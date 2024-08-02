@@ -8,7 +8,6 @@ import { displayUI, resetTab, highlightTab } from './modules/tabControl';
 displayUI();
 
 
-
 function taskUIElement(title) {
   const taskItem = document.createElement('div');
   taskItem.classList.add("todo-item");
@@ -18,20 +17,7 @@ function taskUIElement(title) {
 
   const taskTitle = document.createElement('div');
   taskTitle.classList.add("task-title");
-
-  function truncateTitle(name) {
-    const LENGTH = 53;
-    const lengthOfTitle = name.length;
-    if (lengthOfTitle >= LENGTH) {
-      return `${name.substring(0, LENGTH)}...`
-    }
-    return name;
-  }
-  
-  const newTitle = truncateTitle(title);
-
-  taskTitle.textContent = `${newTitle}`;
-
+  taskTitle.textContent = `${title}`;
 
   const taskStatus = document.createElement('div');
   taskStatus.id = "task-status";
