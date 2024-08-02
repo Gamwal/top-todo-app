@@ -40,14 +40,23 @@ function createNavBar() {
   return navDiv;
 }
 
+function createTodoHolder() {
+  const todoHolder = document.createElement('div');
+  todoHolder.id = "todo-holder";
+
+  return todoHolder;
+}
+
 
 function displayUI() {
   const container = document.getElementById('content');
   const addTaskDiv = createAddTaskDiv();
   const navDiv = createNavBar();
+  const todoHolder = createTodoHolder();
 
   container.appendChild(addTaskDiv);
   container.appendChild(navDiv);
+  container.appendChild(todoHolder);
 }
 
 
