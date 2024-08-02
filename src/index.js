@@ -20,7 +20,7 @@ function taskUIElement(title) {
   taskTitle.classList.add("task-title");
 
   function truncateTitle(name) {
-    const LENGTH = 25;
+    const LENGTH = 53;
     const lengthOfTitle = name.length;
     if (lengthOfTitle >= LENGTH) {
       return `${name.substring(0, LENGTH)}...`
@@ -34,6 +34,7 @@ function taskUIElement(title) {
 
 
   const taskStatus = document.createElement('div');
+  taskStatus.id = "task-status";
   taskStatus.textContent = "not due";
 
   const taskEditButton = document.createElement('button');
