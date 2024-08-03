@@ -1,11 +1,15 @@
 import './style.css';
-// import TodoItem from '.modules/todo';
+import TodoItem from './modules/todo';
 // import Project from './project';
 // import { createNewProject, createNewTodo } from './utils';
 import { displayUI, resetTab, highlightTab } from './modules/tabControl';
 
 
 displayUI();
+
+const newTodo = new TodoItem("Try to get this working", "Just some random text");
+
+localStorage.setItem(newTodo.checkUUID, newTodo.toJSON());
 
 
 function taskUIElement(title) {

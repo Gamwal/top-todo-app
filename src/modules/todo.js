@@ -11,15 +11,14 @@ export default class TodoItem {
 
   #priorities = [1, 2, 3, 4, 5];
 
-  constructor(title, description, dueDate, priority, notes) {
+  constructor(title, description, dueDate = new Date(), priority = this.#priorities[0], notes, UUID = uuidv4()) {
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
-    this.#priority = this.#priorities[0];
+    this.#priority = priority;
     this.#notes = notes;
     this.#completed = false;
-    // this.#UUID = uuidv4();
-    this.#UUID = 1001;
+    this.#UUID = UUID;
   }
 
   get title() {
@@ -72,6 +71,26 @@ export default class TodoItem {
     } else {
       this.#completed = false;
     }
+  }
+
+  toJSON() {
+    return {
+      title: this.#title,
+      description: this.#description,
+      dueDate: this.#dueDate,
+      priority: this.#priority,
+      notes: this.#notes,
+      completed: this.#completed,
+      UUID: this.#UUID
+    };
+  }
+
+  static fromJSON(json) {
+    const data = typeof json === 'string' ? JSON.parse(json) : json;
+    const { title, description, dueDate, priority, notes, completed, UUID } = data;
+    const todoItem = new TodoItem(title, description, dueDate, priority, notes, UUID);
+    todoItem.#completed = completed; // Restore the completed status
+    return todoItem;
   }
 }
 
