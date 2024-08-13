@@ -49,6 +49,17 @@ function addTaskToDisplay(title) {
   taskHolder.appendChild(task);
 }
 
+const sideBarNav = document.getElementsByClassName("side-bar-item");
+Array.from(sideBarNav).forEach((element) => {
+  element.addEventListener("click", (event) => {
+    if (event.currentTarget.tagName === "BUTTON") {
+      console.log(event.currentTarget);
+      resetTab();
+      highlightTab(event.currentTarget);
+    }
+  });
+});
+
 // const navBar = document.getElementById("nav-bar");
 // navBar.addEventListener("click", (event) => {
 //   if (event.target.tagName === "BUTTON") {

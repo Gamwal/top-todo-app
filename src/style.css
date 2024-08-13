@@ -52,11 +52,6 @@ body {
   gap: 1rem;
 }
 
-.side-bar-item div:nth-child(2) {
-  display: flex;
-  align-items: center;
-}
-
 #filters-div .side-bar-item:nth-child(1) .sidebar-icons {
   min-width: 2.4rem;
   min-height: 2.4rem;
@@ -91,6 +86,13 @@ body {
   min-width: 2.4rem;
   min-height: 2.4rem;
   background-image: url("./icons/calendar-month.svg");
+}
+
+#filters-div > button {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
 }
 
 #add-task-container {
@@ -134,6 +136,11 @@ body {
 }
 
 #nav-bar button.active-tab {
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -2px 0 0 var(--light-color);
+}
+
+#filters-div button.active-tab {
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 -2px 0 0 var(--light-color);
 }

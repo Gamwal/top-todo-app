@@ -40,7 +40,7 @@ function createFiltersDiv() {
 }
 
 function createNewSideBarItem(name) {
-  const newItem = document.createElement("div");
+  const newItem = document.createElement("button");
   newItem.classList.add("side-bar-item");
 
   const itemIcon = document.createElement("div");
@@ -119,7 +119,7 @@ function highlightTab(button) {
 }
 
 function resetTab() {
-  const navButtons = document.querySelectorAll("#nav-bar button");
+  const navButtons = document.querySelectorAll("#filters-div button");
   navButtons.forEach((button) => {
     button.classList.remove("active-tab");
   });
