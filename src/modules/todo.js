@@ -1,4 +1,4 @@
-import { v4 as uuidv4 }  from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default class TodoItem {
   #title;
@@ -7,11 +7,18 @@ export default class TodoItem {
   #priority;
   #notes;
   #completed;
-  #UUID
+  #UUID;
 
   #priorities = [1, 2, 3, 4, 5];
 
-  constructor(title, description, dueDate = new Date(), priority = this.#priorities[0], notes, UUID = uuidv4()) {
+  constructor(
+    title,
+    description,
+    dueDate = new Date(),
+    priority = this.#priorities[0],
+    notes,
+    UUID = uuidv4()
+  ) {
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
@@ -81,16 +88,23 @@ export default class TodoItem {
       priority: this.#priority,
       notes: this.#notes,
       completed: this.#completed,
-      UUID: this.#UUID
+      UUID: this.#UUID,
     };
   }
 
   static fromJSON(json) {
-    const data = typeof json === 'string' ? JSON.parse(json) : json;
-    const { title, description, dueDate, priority, notes, completed, UUID } = data;
-    const todoItem = new TodoItem(title, description, dueDate, priority, notes, UUID);
+    const data = typeof json === "string" ? JSON.parse(json) : json;
+    const { title, description, dueDate, priority, notes, completed, UUID } =
+      data;
+    const todoItem = new TodoItem(
+      title,
+      description,
+      dueDate,
+      priority,
+      notes,
+      UUID
+    );
     todoItem.#completed = completed; // Restore the completed status
     return todoItem;
   }
 }
-

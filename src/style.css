@@ -1,8 +1,8 @@
 :root {
   font-size: 10px;
   --border-radius: 6px;
-  --dark-color: rgb(40, 70, 65);
-  --light-color: rgb(157, 252, 220);
+  --dark-color: rgb(231, 231, 231);
+  --light-color: rgb(240, 240, 240);
 }
 
 * {
@@ -20,16 +20,77 @@ body {
 
 #content {
   display: grid;
-  grid-template-rows: minmax(30px, 0.4fr) minmax(30px, 0.4fr) 5fr;
-  flex-direction: column;
-  align-self: center;
-  height: 80vh;
-  width: 60vw;
-  min-width: 500px;
-  background-color: var(--dark-color);
+  grid-template-columns: 1fr 4fr;
+  min-height: 100vh;
+  min-width: 100vw;
   border-radius: var(--border-radius);
-  padding: 4rem 6rem;
-  gap: 1.6rem;
+}
+
+#sidebar {
+  grid-column: 1 / 2;
+  background-color: var(--dark-color);
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+#main {
+  grid-column: 2 / 3;
+  background-color: var(--light-color);
+}
+
+#filters-div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.side-bar-item {
+  display: flex;
+  font-size: 2rem;
+  gap: 1rem;
+}
+
+.side-bar-item div:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+#filters-div .side-bar-item:nth-child(1) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/plus.svg");
+}
+
+#filters-div .side-bar-item:nth-child(2) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/view-parallel.svg");
+}
+
+#filters-div .side-bar-item:nth-child(3) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/clock-outline.svg");
+}
+
+#filters-div .side-bar-item:nth-child(4) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/clock-alert-outline.svg");
+}
+
+#filters-div .side-bar-item:nth-child(5) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/calendar-week.svg");
+}
+
+#filters-div .side-bar-item:nth-child(6) .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/calendar-month.svg");
 }
 
 #add-task-container {
@@ -78,7 +139,7 @@ body {
 }
 
 #todo-holder {
-  overflow:auto;
+  overflow: auto;
   padding-right: 1rem;
 }
 
@@ -104,7 +165,7 @@ body {
 .edit-btn {
   height: 2.4rem;
   width: 2.4rem;
-  background-image: url('./icons/pencil.svg');
+  background-image: url("./icons/pencil.svg");
   background-color: rgba(255, 255, 255, 0);
   border: none;
 }
@@ -112,7 +173,7 @@ body {
 .delete-btn {
   height: 2.4rem;
   width: 2.4rem;
-  background-image: url('./icons/delete.svg');
+  background-image: url("./icons/delete.svg");
   background-color: rgba(255, 255, 255, 0);
   border: none;
 }
