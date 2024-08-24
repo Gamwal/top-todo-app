@@ -8,7 +8,6 @@ function displayUI() {
   const content = document.getElementById("content");
 
   const upperSideBar = createFiltersDiv();
-
   const lowerSideBar = createProjectsDiv();
 
   sideBar.appendChild(upperSideBar);
@@ -23,6 +22,8 @@ function createFiltersDiv() {
   filters.id = "filters-div";
 
   const newTask = createNewSideBarItem("New task");
+  newTask.id = "add-task-btn";
+
   const allTasks = createNewSideBarItem("All");
   const upcomingTasks = createNewSideBarItem("Upcoming");
   const overdueTasks = createNewSideBarItem("Overdue");
@@ -66,53 +67,47 @@ function createProjectsDiv() {
   return projectsDiv;
 }
 
-// function createAddTaskDiv() {
-//   const addTaskDiv = document.createElement("div");
-//   addTaskDiv.id = "add-task-container";
+function createNewTaskDialog() {
+  const popupDialog = document.createElement("div");
+  popupDialog.id = "popup-dialog";
 
-//   const taskInput = document.createElement("input");
-//   taskInput.id = "task-input";
-//   taskInput.placeholder = "New task...";
+  const dialog = document.createElement("div");
+  dialog.id = "dialog";
 
-//   const addTaskBtn = document.createElement("button");
-//   addTaskBtn.id = "add-task-btn";
-//   addTaskBtn.textContent = "ADD";
+  const dialogTitle = document.createElement("div");
+  dialogTitle.textContent = "New Task";
 
-//   addTaskDiv.appendChild(taskInput);
-//   addTaskDiv.appendChild(addTaskBtn);
+  const dialogBody = document.createElement("div");
+  dialogBody.id = "dialog-body";
 
-//   return addTaskDiv;
-// }
+  const taskProject = document.createElement("select");
+  const taskTitle = document.createElement("input");
+  const taskDetails = document.createElement("input");
+  const taskDueDate = document.createElement("input");
+  taskDueDate.type = "date";
 
-// function createNavBar() {
-//   const navDiv = document.createElement("nav");
-//   navDiv.id = "nav-bar";
+  const dialogControl = document.createElement("div");
+  const cancelButton = document.createElement("button");
+  cancelButton.textContent = "Cancel";
+  const doneButton = document.createElement("button");
+  doneButton.textContent = "Done";
 
-//   const allButton = document.createElement("button");
-//   allButton.classList.add("nav-button");
-//   allButton.textContent = "ALL";
+  dialogControl.appendChild(cancelButton);
+  dialogControl.appendChild(doneButton);
 
-//   const activeButton = document.createElement("button");
-//   activeButton.classList.add("nav-button");
-//   activeButton.textContent = "ACTIVE";
+  dialogBody.appendChild(taskProject);
+  dialogBody.appendChild(taskTitle);
+  dialogBody.appendChild(taskDetails);
+  dialogBody.appendChild(taskDueDate);
 
-//   const completedButton = document.createElement("button");
-//   completedButton.classList.add("nav-button");
-//   completedButton.textContent = "COMPLETED";
+  dialog.appendChild(dialogTitle);
+  dialog.appendChild(dialogBody);
+  dialog.appendChild(dialogControl);
 
-//   navDiv.appendChild(allButton);
-//   navDiv.appendChild(activeButton);
-//   navDiv.appendChild(completedButton);
+  popupDialog.appendChild(dialog);
 
-//   return navDiv;
-// }
-
-// function createTodoHolder() {
-//   const todoHolder = document.createElement("div");
-//   todoHolder.id = "todo-holder";
-
-//   return todoHolder;
-// }
+  return popupDialog;
+}
 
 function highlightTab(button) {
   button.classList.add("active-tab");
@@ -125,4 +120,4 @@ function resetTab() {
   });
 }
 
-export { displayUI, highlightTab, resetTab };
+export { displayUI, createNewTaskDialog, highlightTab, resetTab };

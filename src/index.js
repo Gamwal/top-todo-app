@@ -2,16 +2,21 @@ import "./style.css";
 import TodoItem from "./modules/todo";
 // import Project from './project';
 // import { createNewProject, createNewTodo } from './utils';
-import { displayUI, resetTab, highlightTab } from "./modules/ui";
+import {
+  displayUI,
+  createNewTaskDialog,
+  resetTab,
+  highlightTab,
+} from "./modules/ui";
 
 displayUI();
 
-const newTodo = new TodoItem(
-  "Try to get this working",
-  "Just some random text"
-);
+// const newTodo = new TodoItem(
+//   "Try to get this working",
+//   "Just some random text"
+// );
 
-localStorage.setItem(newTodo.checkUUID, newTodo.toJSON());
+// localStorage.setItem(newTodo.checkUUID, newTodo.toJSON());
 
 function taskUIElement(title) {
   const taskItem = document.createElement("div");
@@ -53,9 +58,15 @@ const sideBarNav = document.getElementsByClassName("side-bar-item");
 Array.from(sideBarNav).forEach((element) => {
   element.addEventListener("click", (event) => {
     if (event.currentTarget.tagName === "BUTTON") {
+      if (event.currentTarget.id === "add-task-btn") {
+        const dialog = createNewTaskDialog();
+        document.body.appendChild(dialog);
+        dialog.style.display = "block";
+      } else {
+        resetTab();
+        highlightTab(event.currentTarget);
+      }
       console.log(event.currentTarget);
-      resetTab();
-      highlightTab(event.currentTarget);
     }
   });
 });
