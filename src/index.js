@@ -1,7 +1,6 @@
 import "./style.css";
 import TodoItem from "./modules/todo";
-// import Project from './project';
-// import { createNewProject, createNewTodo } from './utils';
+import Project from "./modules/project";
 import {
   displayUI,
   createNewTaskDialog,
@@ -62,39 +61,53 @@ Array.from(sideBarNav).forEach((element) => {
         const dialog = createNewTaskDialog();
         document.body.appendChild(dialog);
         dialog.style.display = "block";
+        taskControlButtonsEvents(dialog);
       } else {
         resetTab();
         highlightTab(event.currentTarget);
       }
-      console.log(event.currentTarget);
+      // console.log(event.currentTarget);
     }
   });
 });
 
-// const navBar = document.getElementById("nav-bar");
-// navBar.addEventListener("click", (event) => {
-//   if (event.target.tagName === "BUTTON") {
-//     resetTab();
-//     highlightTab(event.target);
-//     if (event.target.textContent === "ALL") {
-//       // contentContainer.appendChild(homePage());
-//     } else if (event.target.textContent === "ACTIVE") {
-//       // contentContainer.appendChild(restaurantMenu());
-//     } else if (event.target.textContent === "COMPLETED") {
-//       // contentContainer.appendChild(contactUs());
-//     }
-//   }
-// });
+function taskControlButtonsEvents(dialogbox) {
+  const taskControlButtons = document.getElementsByClassName(
+    "task-control-button"
+  );
+  Array.from(taskControlButtons).forEach((element) => {
+    element.addEventListener("click", (event) => {
+      if (event.target.id === "done-button") {
+        const form = dialogbox.querySelector("form");
+        form.submit();
+      }
+      document.body.removeChild(dialogbox);
+    });
+  });
+}
 
-// const newTask = document.getElementById("task-input");
-// const addTask = document.getElementById("add-task-btn");
-// addTask.addEventListener("click", (event) => {
-//   if (newTask.value !== "") {
-//     addTaskToDisplay(newTask.value);
-//     // console.log(newTask.value);
-//     newTask.value = "";
-//   }
-// });
+function createUserTodo(dialogbox) {
+  const form = dialogbox.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const taskProject = form.querySelector("select").value;
+    const taskTitle = form.querySelector("input[name='title']").value;
+    const taskDetails = form.querySelector("input[name='details']").value;
+    const taskDueDate = form.querySelector("input[name='dueDate']").value;
+
+    console.log("Form submitted with data:");
+    console.log("Project:", taskProject);
+    console.log("Title:", taskTitle);
+    console.log("Details:", taskDetails);
+    console.log("Due Date:", taskDueDate);
+
+    // Logic to handle the submitted data goes here
+
+    // Optionally, close the dialog after handling the data
+    document.body.removeChild(dialogbox);
+  });
+}
 
 // window.addEventListener("load", () => {
 //   const homeButton = document.querySelector("#nav-bar button:first-child");
