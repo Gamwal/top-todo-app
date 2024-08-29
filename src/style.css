@@ -103,10 +103,11 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   display: none;
+  /* background-color: black; */
+  width: 50rem;
 }
 
 #dialog,
@@ -114,6 +115,43 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+#dialog-body {
+  padding: 2rem;
+}
+
+#dialog div:first-child {
+  background-color: var(--dark-color);
+  font-size: 2rem;
+  text-align: center;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+#dialog div:last-child {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: flex-end;
+}
+
+#dialog div:last-child button {
+  width: 8rem;
+  height: 3rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.6rem;
+}
+
+#dialog div:last-child button:first-child {
+  background-color: rgb(214, 25, 25);
+  color: #fff;
+}
+
+#dialog div:last-child button:last-child {
+  background-color: rgb(19, 77, 19);
+  color: #fff;
 }
 
 #filters-div button.active-tab {
