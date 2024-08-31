@@ -109,7 +109,9 @@ function createUserTodo(dialogbox) {
   });
 }
 
-// window.addEventListener("load", () => {
-//   const homeButton = document.querySelector("#nav-bar button:first-child");
-//   homeButton.click();
-// });
+window.addEventListener("load", () => {
+  const homeButton = document.querySelector("#filters-div button:nth-child(2)");
+  if (homeButton) {
+    homeButton.click();
+  }
+});
