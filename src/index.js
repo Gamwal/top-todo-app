@@ -1,21 +1,8 @@
 import "./style.css";
-import TodoItem from "./modules/todo";
-import Project from "./modules/project";
-import {
-  displayUI,
-  createNewTaskDialog,
-  resetTab,
-  highlightTab,
-} from "./modules/ui";
+import { displayUI, resetTab, highlightTab } from "./modules/ui";
+import { createNewTaskDialog } from "./modules/dialog";
 
 displayUI();
-
-// const newTodo = new TodoItem(
-//   "Try to get this working",
-//   "Just some random text"
-// );
-
-// localStorage.setItem(newTodo.checkUUID, newTodo.toJSON());
 
 function taskUIElement(title) {
   const taskItem = document.createElement("div");
@@ -58,56 +45,14 @@ Array.from(sideBarNav).forEach((element) => {
   element.addEventListener("click", (event) => {
     if (event.currentTarget.tagName === "BUTTON") {
       if (event.currentTarget.id === "add-task-btn") {
-        const dialog = createNewTaskDialog();
-        document.body.appendChild(dialog);
-        dialog.style.display = "block";
-        taskControlButtonsEvents(dialog);
+        createNewTaskDialog();
       } else {
         resetTab();
         highlightTab(event.currentTarget);
       }
-      // console.log(event.currentTarget);
     }
   });
 });
-
-function taskControlButtonsEvents(dialogbox) {
-  const taskControlButtons = document.getElementsByClassName(
-    "task-control-button"
-  );
-  Array.from(taskControlButtons).forEach((element) => {
-    element.addEventListener("click", (event) => {
-      if (event.target.id === "done-button") {
-        const form = dialogbox.querySelector("form");
-        form.submit();
-      }
-      document.body.removeChild(dialogbox);
-    });
-  });
-}
-
-function createUserTodo(dialogbox) {
-  const form = dialogbox.querySelector("form");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const taskProject = form.querySelector("select").value;
-    const taskTitle = form.querySelector("input[name='title']").value;
-    const taskDetails = form.querySelector("input[name='details']").value;
-    const taskDueDate = form.querySelector("input[name='dueDate']").value;
-
-    console.log("Form submitted with data:");
-    console.log("Project:", taskProject);
-    console.log("Title:", taskTitle);
-    console.log("Details:", taskDetails);
-    console.log("Due Date:", taskDueDate);
-
-    // Logic to handle the submitted data goes here
-
-    // Optionally, close the dialog after handling the data
-    document.body.removeChild(dialogbox);
-  });
-}
 
 window.addEventListener("load", () => {
   const homeButton = document.querySelector("#filters-div button:nth-child(2)");
