@@ -105,19 +105,18 @@ function createNewTodo(title, description, notes, dueDate) {
   console.log(JSON.stringify(task));
   localStorage.setItem(task.checkUUID, JSON.stringify(task));
 
-  const temp = localStorage.getItem("2bf15fc6-bec3-45cd-9b37-161fa55becea");
-  console.log(temp);
-  if (temp) {
-    try {
-      const newTask = TodoItem.fromJSON(temp);
-    } catch (error) {
-      console.error("Error parsing JSON or creating TodoItem:", error);
-    }
-  } else {
-    console.error("No data found in localStorage for the given key.");
-
-    console.log(newTask);
-  }
+  //   const temp = localStorage.getItem("2bf15fc6-bec3-45cd-9b37-161fa55becea");
+  //   console.log(temp);
+  //   if (temp) {
+  //     try {
+  //       const newTask = TodoItem.fromJSON(temp);
+  //       console.log(newTask);
+  //     } catch (error) {
+  //       console.error("Error parsing JSON or creating TodoItem:", error);
+  //     }
+  //   } else {
+  //     console.error("No data found in localStorage for the given key.");
+  //   }
 }
 
 export { createNewTaskDialog };
