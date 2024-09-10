@@ -1,3 +1,6 @@
+import { createTodosMainDiv, displayAllTodos } from "./mainDisplay";
+
+
 function displayUI() {
   const sideBar = document.createElement("div");
   sideBar.id = "sidebar";
@@ -15,6 +18,8 @@ function displayUI() {
 
   content.appendChild(sideBar);
   content.appendChild(main);
+
+  createTodosMainDiv();
 }
 
 function createFiltersDiv() {

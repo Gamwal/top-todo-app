@@ -9,6 +9,7 @@ export default class TodoItem {
   #notes;
   #completed;
   #UUID;
+  #status;
 
   #priorities = [1, 2, 3, 4, 5];
 
@@ -43,7 +44,7 @@ export default class TodoItem {
   }
 
   set dueDate(newDueDate) {
-    this.#dueDate = newDueDate;
+    this.#dueDate = format(newDueDate, "yyyy-MM-dd");
   }
 
   get priority() {
@@ -62,8 +63,18 @@ export default class TodoItem {
     this.#notes = newNotes;
   }
 
+  get status() {
+    const currentDate = new Date();
+    const dueDateObj = new Date(this.#dueDate);
+    return this.#completed ? "Completed" : (currentDate > dueDateObj ? "Overdue" : "Pending");
+  }
+
   get checkUUID() {
     return this.#UUID;
+  }
+
+  get completed() {
+    return this.#completed;
   }
 
   toggleComplete() {
@@ -98,7 +109,7 @@ export default class TodoItem {
       notes,
       UUID
     );
-    todoItem.#completed = completed; // Restore the completed status
+    todoItem.#completed = completed;
     return todoItem;
   }
 }

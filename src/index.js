@@ -1,6 +1,9 @@
 import "./style.css";
 import { displayUI, resetTab, highlightTab } from "./modules/ui";
 import { createNewTaskDialog } from "./modules/dialog";
+import { createDummyTodos } from "./modules/dummyTasks";
+import TodoItem from "./modules/todo";
+import { displayAllTodos } from "./modules/mainDisplay";
 
 displayUI();
 
@@ -55,6 +58,9 @@ Array.from(sideBarNav).forEach((element) => {
 });
 
 window.addEventListener("load", () => {
+  // localStorage.clear();
+  // createDummyTodos();
+  displayAllTodos();
   const homeButton = document.querySelector("#filters-div button:nth-child(2)");
   if (homeButton) {
     homeButton.click();
