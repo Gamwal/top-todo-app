@@ -61,13 +61,38 @@ function createNewSideBarItem(name) {
   return newItem;
 }
 
+function createProjectItem(name) {
+  const newItem = document.createElement("button");
+  newItem.classList.add("project-div-item");
+
+  const itemIcon = document.createElement("div");
+  itemIcon.classList.add("project-icons");
+
+  const itemName = document.createElement("div");
+  itemName.textContent = name;
+
+  newItem.appendChild(itemIcon);
+  newItem.appendChild(itemName);
+
+  return newItem;
+}
+
 function createProjectsDiv() {
   const projectsDiv = document.createElement("div");
   projectsDiv.id = "projects-div";
+
   const title = document.createElement("div");
   title.textContent = "Projects";
+  title.style.fontSize = "2rem";
+
+  const newProject = createNewSideBarItem("New Project");
+  newProject.id = "add-new-project";
+
+  const defaultProject = createNewSideBarItem("default");
 
   projectsDiv.appendChild(title);
+  projectsDiv.appendChild(newProject);
+  projectsDiv.appendChild(defaultProject);
 
   return projectsDiv;
 }
