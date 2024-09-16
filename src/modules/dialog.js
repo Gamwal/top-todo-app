@@ -1,5 +1,6 @@
-import TodoItem from "./todo";
+import TodoItem, { PROJECTS } from "./todo";
 import { displayAllTodos } from "./mainDisplay";
+// import { displayUI } from "./ui";
 
 function createNewTaskDialog() {
   const popupDialog = document.createElement("div");
@@ -9,7 +10,7 @@ function createNewTaskDialog() {
   dialog.id = "dialog";
 
   const dialogTitle = document.createElement("div");
-  dialogTitle.textContent = "New Task";
+  dialogTitle.textContent = "Add New Task";
 
   const form = document.createElement("form");
   form.id = "task-form";

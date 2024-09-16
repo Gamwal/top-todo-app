@@ -1,5 +1,8 @@
 import { createTodosMainDiv, displayAllTodos } from "./mainDisplay";
+import { getProjectList } from "./todo";
 
+const PROJECTS = getProjectList();
+console.log(PROJECTS);
 
 function displayUI() {
   const sideBar = document.createElement("div");
@@ -81,19 +84,18 @@ function createProjectsDiv() {
   const projectsDiv = document.createElement("div");
   projectsDiv.id = "projects-div";
 
-  const title = document.createElement("div");
-  title.textContent = "Projects";
-  title.style.fontSize = "2rem";
-
-  const newProject = createNewSideBarItem("New Project");
+  const newProject = createProjectItem("New Project");
   newProject.id = "add-new-project";
 
-  const defaultProject = createNewSideBarItem("default");
+  newProject.addEventListener('click', (event) => {
+    createNewProjDialog();
+  })
 
-  projectsDiv.appendChild(title);
+  const defaultProject = createProjectItem("Default");
+
   projectsDiv.appendChild(newProject);
   projectsDiv.appendChild(defaultProject);
-
+  
   return projectsDiv;
 }
 
@@ -108,4 +110,85 @@ function resetTab() {
   });
 }
 
-export { displayUI, highlightTab, resetTab };
+function resetProjTab() {
+  const navButtons = document.querySelectorAll("#projects-div button");
+  navButtons.forEach((button) => {
+    button.classList.remove("active-tab");
+  });
+}
+
+function createNewProjDialog() {
+  const popupDialog = document.createElement("div");
+  popupDialog.id = "popup-dialog";
+
+  const dialog = document.createElement("div");
+  dialog.id = "dialog";
+
+  const dialogTitle = document.createElement("div");
+  dialogTitle.textContent = "Create New Project";
+
+  const form = document.createElement("form");
+  form.id = "task-form";
+
+  const dialogBody = document.createElement("div");
+  dialogBody.id = "dialog-body";
+
+  const taskTitle = document.createElement("input");
+  taskTitle.placeholder = "Project Name";
+  taskTitle.name = "Project";
+
+  const dialogControl = document.createElement("div");
+
+  const cancelButton = document.createElement("button");
+  cancelButton.classList.add("task-control-button");
+  cancelButton.id = "cancel-button";
+  cancelButton.type = "button";
+  cancelButton.textContent = "Cancel";
+
+  const doneButton = document.createElement("button");
+  doneButton.classList.add("task-control-button");
+  doneButton.id = "done-button";
+  doneButton.type = "submit";
+  doneButton.textContent = "Done";
+
+  dialogControl.appendChild(cancelButton);
+  dialogControl.appendChild(doneButton);
+
+  dialogBody.appendChild(taskTitle);
+
+  form.appendChild(dialogBody);
+  form.appendChild(dialogControl);
+
+  dialog.appendChild(dialogTitle);
+  dialog.appendChild(form);
+
+  popupDialog.appendChild(dialog);
+
+  const content = document.querySelector("#content");
+
+  content.classList.add("blurred-background");
+
+  document.body.appendChild(popupDialog);
+
+  cancelButton.addEventListener("click", () => {
+    document.body.removeChild(popupDialog);
+    content.classList.remove("blurred-background");
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // Handle form data here
+    PROJECTS.push(form.querySelector("input[name='Project']").value);
+    const projectListDiv = document.querySelector("#projects-div");
+    const newProj = createProjectItem(form.querySelector("input[name='Project']").value)
+    projectListDiv.appendChild(newProj);
+    console.log(PROJECTS);
+
+    console.log("Form submitted!");
+    document.body.removeChild(popupDialog);
+    content.classList.remove("blurred-background");
+  });
+}
+
+export { displayUI, highlightTab, resetTab, resetProjTab };

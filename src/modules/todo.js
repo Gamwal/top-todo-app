@@ -1,26 +1,27 @@
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 
+const PROJECTS = {"Default": true};
+
 export default class TodoItem {
   #title;
   #description;
   #dueDate;
-  #priority;
   #notes;
   #completed;
   #UUID;
-  #status;
+  #project;
+  
+  static __APPID = "Christopher Columbus";
 
-  #priorities = [1, 2, 3, 4, 5];
-
-  constructor(title, description, dueDate, notes) {
+  constructor(title, description, dueDate, notes, project) {
     this.#title = title;
     this.#description = description;
     this.#dueDate = dueDate;
-    this.#priority = this.#priorities[0];
     this.#notes = notes;
     this.#completed = false;
     this.#UUID = uuidv4();
+    this.#project = project || "Default";
   }
 
   get title() {
@@ -47,20 +48,20 @@ export default class TodoItem {
     this.#dueDate = format(newDueDate, "yyyy-MM-dd");
   }
 
-  get priority() {
-    return this.#priority;
-  }
-
-  set priority(newPriority) {
-    this.#priority = newPriority;
-  }
-
   get notes() {
     return this.#notes;
   }
 
   set notes(newNotes) {
     this.#notes = newNotes;
+  }
+
+  get project() {
+    return this.#project;
+  }
+
+  set project(newProject) {
+    this.#project = newProject || "Default";
   }
 
   get status() {
@@ -78,11 +79,7 @@ export default class TodoItem {
   }
 
   toggleComplete() {
-    if (this.#completed == false) {
-      this.#completed = true;
-    } else {
-      this.#completed = false;
-    }
+    this.#completed = !this.#completed;
   }
 
   toJSON() {
@@ -90,26 +87,50 @@ export default class TodoItem {
       title: this.#title,
       description: this.#description,
       dueDate: this.#dueDate,
-      priority: this.#priority,
       notes: this.#notes,
       completed: this.#completed,
       UUID: this.#UUID,
+      project: this.#project,
+      appid: TodoItem.__APPID
     };
   }
 
   static fromJSON(json) {
     const data = typeof json === "string" ? JSON.parse(json) : json;
-    const { title, description, dueDate, priority, notes, completed, UUID } =
-      data;
-    const todoItem = new TodoItem(
-      title,
-      description,
-      dueDate,
-      priority,
-      notes,
-      UUID
-    );
-    todoItem.#completed = completed;
-    return todoItem;
+    const { title, description, dueDate, notes, completed, UUID, project, appid } = data;
+  
+    if (appid === TodoItem.__APPID) {
+      const todoItem = new TodoItem(title, description, dueDate, notes, project);
+      
+      todoItem.#UUID = UUID;
+
+      if (completed) {
+        todoItem.toggleComplete();
+      }
+      return todoItem;
+    }
+    return null;
   }
 }
+
+
+function getProjectList() {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const item = localStorage.getItem(key);
+
+    try {
+      const parsedItem = JSON.parse(item);
+
+      if (parsedItem.appid === TodoItem.__APPID && parsedItem.project) {
+        PROJECTS[parsedItem.project] = true;
+      }
+    } catch (e) {
+      console.error(`Error parsing item with key "${key}":`, e);
+    }
+  }
+  return Object.keys(PROJECTS);
+}
+
+
+export { getProjectList, PROJECTS }

@@ -76,10 +76,12 @@ function displayAllTodos() {
 
     const todoItem = TodoItem.fromJSON(JSON.parse(value));
     
-    if (todoItem.completed === false) {
+    if (todoItem) {
+      if (!todoItem.completed) {
       ongoingTodos.appendChild(singleTodo(todoItem));
-    } else {
-      completedTodos.appendChild(singleTodo(todoItem));
+      } else {
+        completedTodos.appendChild(singleTodo(todoItem));
+      }
     }
 
     // console.log(`Key: ${key}, Value: `, todoItem);

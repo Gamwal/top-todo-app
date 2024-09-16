@@ -45,12 +45,13 @@ body {
 #projects-div {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .side-bar-item,
 .project-div-item {
   display: flex;
-  font-size: 2rem;
+  font-size: 1.6rem;
   gap: 1rem;
 }
 
@@ -60,49 +61,46 @@ body {
   box-shadow: inset 0 -2px 0 0 var(--light-color);
 }
 
-#filters-div .side-bar-item:nth-child(1) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
+#filters-div .sidebar-icons,
+#projects-div .project-icons  {
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+#filters-div .side-bar-item:nth-child(1) .sidebar-icons, 
+#add-new-project .project-icons:first-child {
   background-image: url("./icons/plus.svg");
 }
 
 #filters-div .side-bar-item:nth-child(2) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
   background-image: url("./icons/view-parallel.svg");
 }
 
 #filters-div .side-bar-item:nth-child(3) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
   background-image: url("./icons/clock-outline.svg");
 }
 
 #filters-div .side-bar-item:nth-child(4) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
   background-image: url("./icons/clock-alert-outline.svg");
 }
 
 #filters-div .side-bar-item:nth-child(5) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
   background-image: url("./icons/calendar-week.svg");
 }
 
 #filters-div .side-bar-item:nth-child(6) .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
   background-image: url("./icons/calendar-month.svg");
 }
 
-#filters-div > button {
+#filters-div > button,
+#projects-div > button {
   border: none;
   background: none;
   display: flex;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0rem 1rem;
   border-radius: var(--border-radius);
+  height: 4rem;
 }
 
 #popup-dialog {
@@ -244,20 +242,10 @@ body {
   gap: 0.5rem;
 }
 
-#projects-div .side-bar-item {
-  padding: 1rem 1rem;
-  border: none;
-  border-radius: var(--border-radius);
-}
-
-#projects-div .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
+#projects-div .project-icons {
   background-image: url("./icons/circle-double.svg");
 }
 
-#add-new-project .sidebar-icons {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
+#add-new-project .project-icons:first-child {
   background-image: url("./icons/plus.svg");
 }
