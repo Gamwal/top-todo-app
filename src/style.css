@@ -41,18 +41,21 @@ body {
   background-color: var(--light-color);
 }
 
-#filters-div {
+#filters-div,
+#projects-div {
   display: flex;
   flex-direction: column;
 }
 
-.side-bar-item {
+.side-bar-item,
+.project-div-item {
   display: flex;
   font-size: 2rem;
   gap: 1rem;
 }
 
-#filters-div button.active-tab {
+#filters-div button.active-tab,
+#projects-div button.active-tab {
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 -2px 0 0 var(--light-color);
 }
@@ -239,4 +242,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+#projects-div .side-bar-item {
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+#projects-div .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/circle-double.svg");
+}
+
+#add-new-project .sidebar-icons {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  background-image: url("./icons/plus.svg");
 }
