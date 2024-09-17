@@ -1,34 +1,8 @@
 import TodoItem from "./todo";
+import Project from "./project";
+import { createProjectItem } from "./ui";
+import { resetProjTab, highlightTab } from "./ui";
 
-function createTodosMainDiv() {
-  const main = document.getElementById("main");
-
-  const todoListDisplay = document.createElement('div');
-  todoListDisplay.id = "todo-list-display";
-
-  const completedSection = document.createElement('div');
-  completedSection.id = "completed-section";
-  const completedTitle = document.createElement('h1');
-  completedTitle.textContent = "Completed";
-  const completedListArea = document.createElement('div');
-
-  completedSection.appendChild(completedTitle);
-  completedSection.appendChild(completedListArea);
-
-  const uncompletedSection = document.createElement('div');
-  uncompletedSection.id = "ongoing-section";
-  const uncompletedTitle = document.createElement('h1');
-  uncompletedTitle.textContent = "Ongoing";
-  const uncompletedListArea = document.createElement('div');
-
-  uncompletedSection.appendChild(uncompletedTitle);
-  uncompletedSection.appendChild(uncompletedListArea);
-
-  todoListDisplay.appendChild(uncompletedSection);
-  todoListDisplay.appendChild(completedSection);
-  
-  main.appendChild(todoListDisplay);
-}
 
 function singleTodo(todo) {
   const container = document.createElement('div');
@@ -70,22 +44,47 @@ function displayAllTodos() {
   ongoingTodos.textContent = "";
   completedTodos.textContent = "";
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
+  const todos = TodoItem.getTodos();
 
-    const todoItem = TodoItem.fromJSON(JSON.parse(value));
-    
-    if (todoItem) {
-      if (!todoItem.completed) {
-      ongoingTodos.appendChild(singleTodo(todoItem));
-      } else {
-        completedTodos.appendChild(singleTodo(todoItem));
-      }
+  for (const [UUID, todoObject] of Object.entries(todos)) {
+    if (!todoObject.completed) {
+      ongoingTodos.appendChild(singleTodo(todoObject));
+    } else {
+      completedTodos.appendChild(singleTodo(todoObject));
     }
+  }
+  updateDisplay();
+  createProjectList();
+}
 
-    // console.log(`Key: ${key}, Value: `, todoItem);
+function updateDisplay(todoFilter="All", projectFilter="Default") {
+  const newTodo = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
+
+  console.log(newTodo)
+  
+  if (todoFilter === "All") {}
+
+  createProjectList();
+}
+
+function createProjectList() {
+  const projectsList = document.querySelector("#projects-list-div");
+  projectsList.textContent = "";
+
+  Object.keys(Project.PROJECTS).forEach((proj) => {
+    const newProj = createProjectItem(proj);
+    newProj.addEventListener('click', (event) => {
+      if (event.currentTarget.tagName === "BUTTON") {
+        resetProjTab();
+        highlightTab(event.currentTarget);
+      }
+    });
+    projectsList.appendChild(newProj)
+  });
+  const defaultProjectBtn = document.querySelector("#projects-list-div button:last-child");
+  if (defaultProjectBtn) {
+    defaultProjectBtn.click();
   }
 }
 
-export { createTodosMainDiv, displayAllTodos }
+export { displayAllTodos, updateDisplay }

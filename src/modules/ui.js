@@ -1,9 +1,3 @@
-import { createTodosMainDiv, displayAllTodos } from "./mainDisplay";
-import { getProjectList } from "./todo";
-
-const PROJECTS = getProjectList();
-console.log(PROJECTS);
-
 function displayUI() {
   const sideBar = document.createElement("div");
   sideBar.id = "sidebar";
@@ -84,19 +78,46 @@ function createProjectsDiv() {
   const projectsDiv = document.createElement("div");
   projectsDiv.id = "projects-div";
 
+  const projectListDiv = document.createElement('div');
+  projectListDiv.id = "projects-list-div";
+
   const newProject = createProjectItem("New Project");
   newProject.id = "add-new-project";
 
-  newProject.addEventListener('click', (event) => {
-    createNewProjDialog();
-  })
-
-  const defaultProject = createProjectItem("Default");
-
   projectsDiv.appendChild(newProject);
-  projectsDiv.appendChild(defaultProject);
+  projectsDiv.appendChild(projectListDiv);
   
   return projectsDiv;
+}
+
+function createTodosMainDiv() {
+  const main = document.getElementById("main");
+
+  const todoListDisplay = document.createElement('div');
+  todoListDisplay.id = "todo-list-display";
+
+  const completedSection = document.createElement('div');
+  completedSection.id = "completed-section";
+  const completedTitle = document.createElement('h1');
+  completedTitle.textContent = "Completed";
+  const completedListArea = document.createElement('div');
+
+  completedSection.appendChild(completedTitle);
+  completedSection.appendChild(completedListArea);
+
+  const uncompletedSection = document.createElement('div');
+  uncompletedSection.id = "ongoing-section";
+  const uncompletedTitle = document.createElement('h1');
+  uncompletedTitle.textContent = "Ongoing";
+  const uncompletedListArea = document.createElement('div');
+
+  uncompletedSection.appendChild(uncompletedTitle);
+  uncompletedSection.appendChild(uncompletedListArea);
+
+  todoListDisplay.appendChild(uncompletedSection);
+  todoListDisplay.appendChild(completedSection);
+  
+  main.appendChild(todoListDisplay);
 }
 
 function highlightTab(button) {
@@ -111,84 +132,10 @@ function resetTab() {
 }
 
 function resetProjTab() {
-  const navButtons = document.querySelectorAll("#projects-div button");
+  const navButtons = document.querySelectorAll("#projects-list-div button");
   navButtons.forEach((button) => {
     button.classList.remove("active-tab");
   });
 }
 
-function createNewProjDialog() {
-  const popupDialog = document.createElement("div");
-  popupDialog.id = "popup-dialog";
-
-  const dialog = document.createElement("div");
-  dialog.id = "dialog";
-
-  const dialogTitle = document.createElement("div");
-  dialogTitle.textContent = "Create New Project";
-
-  const form = document.createElement("form");
-  form.id = "task-form";
-
-  const dialogBody = document.createElement("div");
-  dialogBody.id = "dialog-body";
-
-  const taskTitle = document.createElement("input");
-  taskTitle.placeholder = "Project Name";
-  taskTitle.name = "Project";
-
-  const dialogControl = document.createElement("div");
-
-  const cancelButton = document.createElement("button");
-  cancelButton.classList.add("task-control-button");
-  cancelButton.id = "cancel-button";
-  cancelButton.type = "button";
-  cancelButton.textContent = "Cancel";
-
-  const doneButton = document.createElement("button");
-  doneButton.classList.add("task-control-button");
-  doneButton.id = "done-button";
-  doneButton.type = "submit";
-  doneButton.textContent = "Done";
-
-  dialogControl.appendChild(cancelButton);
-  dialogControl.appendChild(doneButton);
-
-  dialogBody.appendChild(taskTitle);
-
-  form.appendChild(dialogBody);
-  form.appendChild(dialogControl);
-
-  dialog.appendChild(dialogTitle);
-  dialog.appendChild(form);
-
-  popupDialog.appendChild(dialog);
-
-  const content = document.querySelector("#content");
-
-  content.classList.add("blurred-background");
-
-  document.body.appendChild(popupDialog);
-
-  cancelButton.addEventListener("click", () => {
-    document.body.removeChild(popupDialog);
-    content.classList.remove("blurred-background");
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    // Handle form data here
-    PROJECTS.push(form.querySelector("input[name='Project']").value);
-    const projectListDiv = document.querySelector("#projects-div");
-    const newProj = createProjectItem(form.querySelector("input[name='Project']").value)
-    projectListDiv.appendChild(newProj);
-    console.log(PROJECTS);
-
-    console.log("Form submitted!");
-    document.body.removeChild(popupDialog);
-    content.classList.remove("blurred-background");
-  });
-}
-
-export { displayUI, highlightTab, resetTab, resetProjTab };
+export { displayUI, highlightTab, resetTab, resetProjTab, createProjectItem };

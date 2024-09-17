@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
 
-const PROJECTS = {"Default": true};
 
 export default class TodoItem {
   #title;
@@ -12,7 +11,8 @@ export default class TodoItem {
   #UUID;
   #project;
   
-  static __APPID = "Christopher Columbus";
+  static __APPID = "Columbus";
+  static todos = {};
 
   constructor(title, description, dueDate, notes, project) {
     this.#title = title;
@@ -111,26 +111,29 @@ export default class TodoItem {
     }
     return null;
   }
-}
 
+  static updateTodos(todoItem) {
+    TodoItem.todos[todoItem.checkUUID] = todoItem;
+    localStorage.setItem(todoItem.checkUUID, JSON.stringify(todoItem.toJSON()));
+  }
 
-function getProjectList() {
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const item = localStorage.getItem(key);
-
-    try {
-      const parsedItem = JSON.parse(item);
-
-      if (parsedItem.appid === TodoItem.__APPID && parsedItem.project) {
-        PROJECTS[parsedItem.project] = true;
+  static initializeTodos() {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+  
+      try {
+        const todoItem = TodoItem.fromJSON(JSON.parse(value));
+        if (todoItem) {
+          TodoItem.todos[todoItem.checkUUID] = todoItem;
+        }
+      } catch (e) {
+        console.error(`Error parsing item with key "${key}":`, e);
       }
-    } catch (e) {
-      console.error(`Error parsing item with key "${key}":`, e);
     }
   }
-  return Object.keys(PROJECTS);
+
+  static getTodos() {
+    return TodoItem.todos;
+  }
 }
-
-
-export { getProjectList, PROJECTS }
