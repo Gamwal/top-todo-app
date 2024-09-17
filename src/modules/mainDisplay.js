@@ -1,7 +1,6 @@
 import TodoItem from "./todo";
 import Project from "./project";
-import { createProjectItem } from "./ui";
-import { resetProjTab, highlightTab } from "./ui";
+import { createProjectItem, resetProjTab, highlightTab, FilterVariables } from "./ui";
 
 
 function singleTodo(todo) {
@@ -11,9 +10,10 @@ function singleTodo(todo) {
   const checkbox = document.createElement('input');
   checkbox.type = "checkbox";
 
-  checkbox.addEventListener('click', (event) => {
+  checkbox.addEventListener('click', () => {
     todo.toggleComplete();
-    displayAllTodos();
+    TodoItem.updateTodos(todo);
+    updateDisplay();
   })
   
   const todoTitle = document.createElement('div');
@@ -37,34 +37,28 @@ function singleTodo(todo) {
   return container;
 }
 
-function displayAllTodos() {
+function updateDisplay(todoFilter=FilterVariables.currentTodoFilter, projectFilter=FilterVariables.currentProjectFilter) {
   const ongoingTodos = document.querySelector("#ongoing-section > div");
   const completedTodos = document.querySelector("#completed-section > div");
-  
+
   ongoingTodos.textContent = "";
   completedTodos.textContent = "";
 
-  const todos = TodoItem.getTodos();
+  const todos = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
 
-  for (const [UUID, todoObject] of Object.entries(todos)) {
-    if (!todoObject.completed) {
-      ongoingTodos.appendChild(singleTodo(todoObject));
-    } else {
-      completedTodos.appendChild(singleTodo(todoObject));
+  // console.log(todoFilter)
+  // console.log(projectFilter)
+  
+  if (todoFilter !== "All") {
+  } else {
+    for (const [UUID, todoObject] of Object.entries(todos)) {
+      if (!todoObject.completed) {
+        ongoingTodos.appendChild(singleTodo(todoObject));
+      } else {
+        completedTodos.appendChild(singleTodo(todoObject));
+      }
     }
   }
-  updateDisplay();
-  createProjectList();
-}
-
-function updateDisplay(todoFilter="All", projectFilter="Default") {
-  const newTodo = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
-
-  console.log(newTodo)
-  
-  if (todoFilter === "All") {}
-
-  createProjectList();
 }
 
 function createProjectList() {
@@ -77,6 +71,8 @@ function createProjectList() {
       if (event.currentTarget.tagName === "BUTTON") {
         resetProjTab();
         highlightTab(event.currentTarget);
+        FilterVariables.currentProjectFilter = event.currentTarget.name;
+        updateDisplay()
       }
     });
     projectsList.appendChild(newProj)
@@ -87,4 +83,4 @@ function createProjectList() {
   }
 }
 
-export { displayAllTodos, updateDisplay }
+export { updateDisplay, createProjectList }

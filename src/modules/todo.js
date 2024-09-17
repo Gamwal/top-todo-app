@@ -80,6 +80,7 @@ export default class TodoItem {
 
   toggleComplete() {
     this.#completed = !this.#completed;
+    return `You have marked ${this} as completed`;
   }
 
   toJSON() {

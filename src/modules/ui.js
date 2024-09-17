@@ -1,3 +1,9 @@
+class FilterVariables {
+  static currentTodoFilter = "All";
+  static currentProjectFilter = "Default";
+}
+
+
 function displayUI() {
   const sideBar = document.createElement("div");
   sideBar.id = "sidebar";
@@ -45,6 +51,7 @@ function createFiltersDiv() {
 function createNewSideBarItem(name) {
   const newItem = document.createElement("button");
   newItem.classList.add("side-bar-item");
+  newItem.name = name;
 
   const itemIcon = document.createElement("div");
   itemIcon.classList.add("sidebar-icons");
@@ -61,6 +68,7 @@ function createNewSideBarItem(name) {
 function createProjectItem(name) {
   const newItem = document.createElement("button");
   newItem.classList.add("project-div-item");
+  newItem.name = name;
 
   const itemIcon = document.createElement("div");
   itemIcon.classList.add("project-icons");
@@ -138,4 +146,4 @@ function resetProjTab() {
   });
 }
 
-export { displayUI, highlightTab, resetTab, resetProjTab, createProjectItem };
+export { displayUI, highlightTab, resetTab, resetProjTab, createProjectItem, FilterVariables };

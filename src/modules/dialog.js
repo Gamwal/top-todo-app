@@ -1,6 +1,6 @@
 import TodoItem from "./todo";
 import Project from "./project";
-import { displayAllTodos, updateDisplay } from "./mainDisplay";
+import { updateDisplay, createProjectList } from "./mainDisplay";
 
 
 function createNewTaskDialog() {
@@ -89,11 +89,11 @@ function createNewTaskDialog() {
     const taskDetails = form.querySelector("input[name='details']").value;
     const taskDueDate = form.querySelector("input[name='dueDate']").value;
 
-    console.log("Form submitted with data:");
-    console.log("Project:", taskProject);
-    console.log("Title:", taskTitle);
-    console.log("Details:", taskDetails);
-    console.log("Due Date:", taskDueDate);
+    // console.log("Form submitted with data:");
+    // console.log("Project:", taskProject);
+    // console.log("Title:", taskTitle);
+    // console.log("Details:", taskDetails);
+    // console.log("Due Date:", taskDueDate);
 
     // Logic to handle the submitted data goes here
     createNewTodo(taskTitle, taskDetails, taskDetails, taskDueDate, taskProject);
@@ -115,7 +115,7 @@ function createNewTodo(title, description, notes, dueDate, project) {
   console.log(JSON.stringify(task));
   TodoItem.updateTodos(task);
   Project.updateProjectList(task.project)
-  displayAllTodos();
+  updateDisplay();
 }
 
 function createNewProjDialog() {
@@ -181,9 +181,10 @@ function createNewProjDialog() {
 
     // Handle form data here
     Project.updateProjectList(form.querySelector("input[name='Project']").value)
-    updateDisplay()
-    
-    console.log("Form submitted!");
+    updateDisplay();
+    createProjectList();
+
+    // console.log("Form submitted!");
     document.body.removeChild(popupDialog);
     content.classList.remove("blurred-background");
   });

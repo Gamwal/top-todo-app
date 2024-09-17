@@ -1,10 +1,11 @@
 import "./style.css";
-import { displayUI, resetTab, highlightTab, resetProjTab } from "./modules/ui";
+import { displayUI, resetTab, highlightTab, FilterVariables } from "./modules/ui";
 import { createNewTaskDialog, createNewProjDialog } from "./modules/dialog";
-import { createDummyTodos } from "./modules/dummyTasks";
-import { displayAllTodos, updateDisplay } from "./modules/mainDisplay";
+// import { createDummyTodos } from "./modules/dummyTasks";
+import {  createProjectList, updateDisplay } from "./modules/mainDisplay";
 import Project from "./modules/project";
 import TodoItem from "./modules/todo";
+
 
 displayUI();
 
@@ -16,7 +17,9 @@ Array.from(sideBarNav).forEach((element) => {
         createNewTaskDialog();
       } else {
         resetTab();
+        FilterVariables.currentTodoFilter = event.currentTarget.name;
         highlightTab(event.currentTarget);
+        updateDisplay();
       }
     }
   });
@@ -34,7 +37,8 @@ window.addEventListener("load", () => {
   Project.loadProjectList();
   Project.saveProjectList();
 
-  displayAllTodos();
+  updateDisplay();
+  createProjectList();
   const homeButton = document.querySelector("#filters-div button:nth-child(2)");
   if (homeButton) {
     homeButton.click();
