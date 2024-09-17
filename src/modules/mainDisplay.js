@@ -44,19 +44,63 @@ function updateDisplay(todoFilter=FilterVariables.currentTodoFilter, projectFilt
   ongoingTodos.textContent = "";
   completedTodos.textContent = "";
 
-  const todos = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
+  let todos = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
 
+  // console.log(todos);
   // console.log(todoFilter)
   // console.log(projectFilter)
   
-  if (todoFilter !== "All") {
-  } else {
-    for (const [UUID, todoObject] of Object.entries(todos)) {
-      if (!todoObject.completed) {
-        ongoingTodos.appendChild(singleTodo(todoObject));
-      } else {
-        completedTodos.appendChild(singleTodo(todoObject));
-      }
+  if (todoFilter === "Upcoming") {
+    todos = Object.values(todos).filter(item => {
+      const dueDate = new Date(item.dueDate);
+      const timeDifference = dueDate - new Date();
+      console.log(timeDifference)
+      return timeDifference >= 0 && timeDifference <= 2 * 24 * 60 * 60 * 1000;  // Convert 2 days to milliseconds and check if dueDate is within that range
+    })
+  } else if (todoFilter === "Overdue") {
+    todos = Object.values(todos).filter(item => {
+      const dueDate = new Date(item.dueDate);
+      const timeDifference = dueDate - new Date();
+      return timeDifference < 0 
+    })
+  } else if (todoFilter === "This week") {
+    const now = new Date();
+    
+    // Get the start of the week (Monday)
+    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1));
+    startOfWeek.setHours(0, 0, 0, 0); // Set time to midnight
+  
+    // Get the end of the week (Sunday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999); // End of the day
+  
+    todos = Object.values(todos).filter(item => {
+      const dueDate = new Date(item.dueDate);
+      return dueDate >= startOfWeek && dueDate <= endOfWeek;
+    });
+  } else if (todoFilter === "This month") {
+    const now = new Date();
+    
+    // Get the start of the month (1st day)
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    startOfMonth.setHours(0, 0, 0, 0); // Set time to midnight
+  
+    // Get the end of the month (last day)
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999); // End of the day
+  
+    todos = Object.values(todos).filter(item => {
+      const dueDate = new Date(item.dueDate);
+      return dueDate >= startOfMonth && dueDate <= endOfMonth;
+    });
+  }
+
+  for (const [UUID, todoObject] of Object.entries(todos)) {
+    if (!todoObject.completed) {
+      ongoingTodos.appendChild(singleTodo(todoObject));
+    } else {
+      completedTodos.appendChild(singleTodo(todoObject));
     }
   }
 }
