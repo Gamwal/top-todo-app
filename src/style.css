@@ -188,7 +188,7 @@ body {
   border-radius: var(--border-radius);
   padding: 0rem 1rem;
   display: grid;
-  grid-template-columns: 2rem minmax(100px, 5fr) 8ch 2rem 2rem;
+  grid-template-columns: 2rem minmax(100px, 5fr) 12ch 2rem 2rem;
   gap: 1rem;
   align-items: center;
 }
