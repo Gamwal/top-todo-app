@@ -83,6 +83,22 @@ export default class TodoItem {
     return `You have marked ${this} as completed`;
   }
 
+  editTodo(newTitle, newDueDate, newNotes, newProject) {
+    this.#title = newTitle
+    this.#description = newNotes
+    this.#dueDate = newDueDate;
+    this.#notes = newNotes
+    this.#project = newProject;
+
+    // Update the todo in the local storage
+    TodoItem.updateTodos(this);
+  }
+
+  deleteTodo() {
+    delete TodoItem.todos[this.#UUID];
+    localStorage.removeItem(this.#UUID);
+  }
+
   toJSON() {
     return {
       title: this.#title,

@@ -10,6 +10,17 @@ export default class Project {
     Project.updateProjectList();
   }
 
+  static deleteProject(project) {
+    Object.keys(TodoItem.todos).forEach(todo => {
+      if (TodoItem.todos[todo].project === project) {
+        TodoItem.todos[todo].deleteTodo();
+      }
+    })
+
+    delete Project.PROJECTS[project];
+    Project.saveProjectList();
+  }
+
   static updateProjectList(newProject) {
     Project.PROJECTS[newProject] = true;
     this.saveProjectList();

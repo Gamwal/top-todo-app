@@ -1,3 +1,5 @@
+import { createDeleteProjectDialog } from "./dialog";
+
 class FilterVariables {
   static currentTodoFilter = "All";
   static currentProjectFilter = "Default";
@@ -89,8 +91,18 @@ function createProjectItem(name) {
   const itemName = document.createElement("div");
   itemName.textContent = name;
 
+  const deleteProject = document.createElement("div");
+  deleteProject.classList.add("del-project-icons");
+
+  deleteProject.addEventListener("click", (event) => {
+    if (name !== "Default"){
+      createDeleteProjectDialog(name);
+    }
+  })
+
   newItem.appendChild(itemIcon);
   newItem.appendChild(itemName);
+  newItem.appendChild(deleteProject);
 
   return newItem;
 }

@@ -1,6 +1,7 @@
 import TodoItem from "./todo";
 import Project from "./project";
 import { createProjectItem, resetProjTab, highlightTab, FilterVariables } from "./ui";
+import { createEditDialog, createDeleteDialog } from "./dialog";
 
 
 function singleTodo(todo) {
@@ -24,9 +25,17 @@ function singleTodo(todo) {
   
   const editButton = document.createElement('button');
   editButton.classList.add("edit-btn");
+
+  editButton.addEventListener("click", () => {
+    createEditDialog(todo);
+  })
   
   const deleteButton = document.createElement('button');
-  deleteButton.classList.add("delete-btn")
+  deleteButton.classList.add("delete-btn");
+
+  deleteButton.addEventListener("click", () => {
+    createDeleteDialog(todo);
+  })
 
   container.appendChild(checkbox);
   container.appendChild(todoTitle);
@@ -45,16 +54,11 @@ function updateDisplay(todoFilter=FilterVariables.currentTodoFilter, projectFilt
   completedTodos.textContent = "";
 
   let todos = Object.values(TodoItem.todos).filter(item => item.project === projectFilter);
-
-  // console.log(todos);
-  // console.log(todoFilter)
-  // console.log(projectFilter)
   
   if (todoFilter === "Upcoming") {
     todos = Object.values(todos).filter(item => {
       const dueDate = new Date(item.dueDate);
       const timeDifference = dueDate - new Date();
-      console.log(timeDifference)
       return timeDifference >= 0 && timeDifference <= 2 * 24 * 60 * 60 * 1000;  // Convert 2 days to milliseconds and check if dueDate is within that range
     })
   } else if (todoFilter === "Overdue") {

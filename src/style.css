@@ -78,7 +78,8 @@ body {
 }
 
 #filters-div .sidebar-icons,
-#projects-div .project-icons  {
+#projects-div .project-icons,
+.del-project-icons  {
   min-width: 2rem;
   min-height: 2rem;
 }
@@ -262,3 +263,18 @@ body {
 #add-new-project .project-icons:first-child {
   background-image: url("./icons/plus.svg");
 }
+
+#dialog-body > div {
+  font-size: 1.8rem;
+}
+
+#projects-list-div button:not(:first-child) :last-child {
+  display: flex;
+  background-image: url("./icons/delete.svg");
+}
+
+#projects-list-div :nth-child(2) {
+  flex-grow: 1;
+  text-align: start;
+}
+
