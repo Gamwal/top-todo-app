@@ -29,8 +29,7 @@ Ensure you have the following installed:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/todo-list-app.git
-   ```
+   git clone https://github.com/Gamwal/top-todo-app.git 
 2. **Navigate into the project directory**:
    ```bash
    cd todo-list-app
@@ -62,12 +61,41 @@ Once the application is running, you can:
 The project is organized as follows:
 
 ```bash
-├── /src/
-│   ├── mainDisplay.js   # Handles UI updates for displaying tasks and projects
-│   ├── todo.js          # Core logic for task and project management
-│   └── styles.css       # Application styling
-├── index.html           # Main HTML file for the application
-├── README.md            # This file
+.
+├── src
+│   ├── icons
+│   │   ├── abacus.svg
+│   │   ├── calendar-month.svg
+│   │   ├── calendar-week.svg
+│   │   ├── circle-double.svg
+│   │   ├── clock-alert-outline.svg
+│   │   ├── clock-outline.svg
+│   │   ├── delete.svg
+│   │   ├── pencil.svg
+│   │   ├── plus.svg
+│   │   └── view-parallel.svg
+│   ├── index.html                     # Main HTML file for the application
+│   ├── index.js
+│   ├── modules
+│   │   ├── dialog.js
+│   │   ├── dummyTasks.js
+│   │   ├── mainDisplay.js
+│   │   ├── project.js                 # Core logic for project management
+│   │   ├── todo.js                    # Core logic for task management
+│   │   └── ui.js                      # Handles UI updates for displaying tasks and projects
+│   └── style.css                      # Application styling
+├── index.html           
+├── README.md  
+└── webpack.config.js
+
+
+│       ├── mainDisplay.js  
+│   ├── mainDisplay.js   
+│   ├── todo.js          
+│   └── styles.css       
+├── package.json
+├── package-lock.json
+├── README.md                         # This file                 
 ```
 
 ### **Core Modules**
