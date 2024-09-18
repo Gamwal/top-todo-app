@@ -30,15 +30,30 @@ body {
   grid-column: 1 / 2;
   background-color: var(--dark-color);
   padding: 1rem 1rem;
-  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
 
+#app-logo-div {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  gap: 1rem;
+}
+
+#app-logo {
+  height: 4rem;
+  width: 4rem;
+  background-image: url("./icons/abacus.svg");
+}
+
 #main {
   grid-column: 2 / 3;
   background-color: var(--light-color);
+  display: flex;
+  padding: 8.5rem 10rem;
+  justify-content: center;
 }
 
 #filters-div,
@@ -163,7 +178,8 @@ body {
 }
 
 #dialog input,
-#dialog select {
+#dialog select,
+#dialog textarea {
   height: 4rem;
   border: 1px solid black;
   border-radius: var(--border-radius);
@@ -171,8 +187,9 @@ body {
   font-size: 1.6rem;
 }
 
-#dialog input:nth-child(3) {
+#dialog textarea {
   height: 15rem;
+  vertical-align: top;
 }
 
 .blurred-background {
@@ -211,12 +228,6 @@ body {
 
 .task-title {
   overflow: hidden;
-}
-
-#main {
-  display: flex;
-  padding: 6rem 10rem;
-  justify-content: center;
 }
 
 #todo-list-display {

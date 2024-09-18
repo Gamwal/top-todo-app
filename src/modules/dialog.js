@@ -31,7 +31,7 @@ function createNewTaskDialog() {
   taskTitle.placeholder = "Title";
   taskTitle.name = "title";
 
-  const taskDetails = document.createElement("input");
+  const taskDetails = document.createElement("textarea");
   taskDetails.placeholder = "Notes";
   taskDetails.name = "details";
 
@@ -86,7 +86,7 @@ function createNewTaskDialog() {
     // Handle form data here
     const taskProject = form.querySelector("select").value;
     const taskTitle = form.querySelector("input[name='title']").value;
-    const taskDetails = form.querySelector("input[name='details']").value;
+    const taskDetails = form.querySelector("textarea[name='details']").value;
     const taskDueDate = form.querySelector("input[name='dueDate']").value;
 
     // console.log("Form submitted with data:");

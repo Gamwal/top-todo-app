@@ -13,9 +13,22 @@ function displayUI() {
 
   const content = document.getElementById("content");
 
+  const appLogo = document.createElement("div");
+  appLogo.id = "app-logo-div";
+
+  const appIcon = document.createElement("div");
+  appIcon.id = "app-logo";
+
+  const appTitle = document.createElement("div");
+  appTitle.textContent = "PlannIT";
+
   const upperSideBar = createFiltersDiv();
   const lowerSideBar = createProjectsDiv();
 
+  appLogo.appendChild(appIcon);
+  appLogo.appendChild(appTitle);
+
+  sideBar.appendChild(appLogo);
   sideBar.appendChild(upperSideBar);
   sideBar.appendChild(lowerSideBar);
 
